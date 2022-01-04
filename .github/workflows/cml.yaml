@@ -18,9 +18,12 @@ jobs:
           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           # Post reports as comments in GitHub PRs
+          echo "## Performance of Models">>report.md
           cat Results.txt >> report.md
+          echo "## Vizualizations">> report.md
+          cml-publish Random_Forestconfusion.png --md >> report.md
+          
           cml-send-comment report.md
-          cat Results.txt >> report.md
-          cml-send-comment report.md
+          
           
           
