@@ -13,6 +13,13 @@ jobs:
           pip install -r requirements.txt
           echo "Beginning Training"
           python train.py 
+      - name: Write CML report
+        env:
+          REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Post reports as comments in GitHub PRs
+          cat Results.txt >> report.md
+          cml-send-comment report.md
           cat Results.txt >> report.md
           cml-send-comment report.md
           
