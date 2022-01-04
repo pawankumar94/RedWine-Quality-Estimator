@@ -12,6 +12,15 @@ jobs:
         run: |
           # Your ML workflow goes here
           pip install -r requirements.txt
+          echo "Beginning Training"
           python train.py
-          echo "Results of Trained Models"
-          cat  Results.txt
+          
+          echo "## Confusion Metrics of Models" >> experiment-report.md
+          cml-publish Logistic_Regressionconfusion.png --md >> experiment-report.md
+          
+          echo "## Performance of Selected Models" >> experiment-report.md
+          cat  Results.txt >> experiment-report.md
+          
+          cml-send-comment experiment-report.md
+          
+          
