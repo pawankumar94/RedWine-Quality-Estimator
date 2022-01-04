@@ -12,10 +12,8 @@ jobs:
           # Your ML workflow goes here
           pip install -r requirements.txt
           echo "Beginning Training"
-          python train.py
-          echo "## Performance of Selected Models" > experiment-report.md
-          cat  Results.txt >> experiment-report.md
-          
-          cml-send-comment experiment-report.md
+          python train.py 
+          cat Results.txt >> report.md
+          cml-send-comment report.md
           
           
