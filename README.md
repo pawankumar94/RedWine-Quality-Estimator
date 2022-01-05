@@ -31,4 +31,10 @@ Builiding of ML pipeline for Classifying the quality of red wine as "Good" or "B
 - Features Scaling Performed using StandardScaler  [Link to Dataset](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html)
 
 ## 3. Exploratory Data Analysis
+- As mentioned above the target variable(quality) ranges in a range between 0 - 10. We first transformed the problem into a binary classification problem, by moviing   all the instances with quality < 7 as "Bad" and quality >7 as "Good". At first glance on the below shown figures a high class imbalance problem in the dataset.
+![alt text](https://github.com/pawankumar94/RedWine-Quality-Estimator/blob/96e762a145b17b6b356c31c8502a4d744c4a7c27/graphics/Ditribution.png)
+![alt text](https://github.com/pawankumar94/RedWine-Quality-Estimator/blob/96e762a145b17b6b356c31c8502a4d744c4a7c27/graphics/before-oversample.png)
+
+- The following Image shows the correlation matrix of the dataset and correlation of features with target variables
+![alt text](https://github.com/pawankumar94/RedWine-Quality-Estimator/blob/96e762a145b17b6b356c31c8502a4d744c4a7c27/graphics/correlation.png)
 
