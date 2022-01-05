@@ -1,0 +1,31 @@
+name: red-wine-quality
+on: [push]
+jobs:
+  run:
+    runs-on: [ubuntu-latest]
+    container: docker://dvcorg/cml-py3:latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Train
+        env:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Intalling requirements
+          pip install -r requirements.txt
+          # Running the Trainer Module
+          python train.py
+          
+          
+          echo "## Confusion Matrix Logistic Regression" >> report.md
+          cml-publish Logistic_Regression_confusion_matrix.png --md >> report.md
+          
+          echo "## Confusion Matrix Decison Tree" >> report.md
+          cml-publish Decison_Tree_confusion_matrix.png --md >> report.md
+          
+          echo "## Confusion Matrix Random Forest" >> report.md
+          cml-publish Random_Forest_confusion_matrix.png --md >> report.md
+          
+          echo "##  Generalisation for each Selected Model" >> report.md
+          cat metrics.txt >> report.md
+          
+          cml-send-comment report.md
