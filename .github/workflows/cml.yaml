@@ -15,18 +15,13 @@ jobs:
           # Running the Trainer Module
           python train.py
           
-          echo "## Classification Report Logistic Regression" >> report.md
-          cat Logistic_Regression_report.txt >> report.md
+          
           echo "## Confusion Matrix Logistic Regression" >> report.md
           cml-publish Logistic_Regression_confusion_matrix.png --md >> report.md
           
-          echo "## Classification Report Decision Tree" >> report.md
-          cat Decison_Tree_report.txt >> report.md
           echo "## Confusion Matrix Decison Tree" >> report.md
           cml-publish Decison_Tree_confusion_matrix.png --md >> report.md
           
-          echo "## Classification Report Random Forest" >> report.md
-          cat Random_Forest_report.txt >> report.md
           echo "## Confusion Matrix Random Forest" >> report.md
           cml-publish Random_Forest_confusion_matrix.png --md >> report.md
           
