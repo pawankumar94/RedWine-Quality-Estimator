@@ -32,9 +32,17 @@ Builiding of ML pipeline for Classifying the quality of red wine as "Good" or "B
 
 ## 3. Exploratory Data Analysis
 - As mentioned above the target variable(quality) ranges in a range between 0 - 10. We first transformed the problem into a binary classification problem, by moviing   all the instances with quality < 7 as "Bad" and quality >7 as "Good". At first glance on the below shown figures a high class imbalance problem in the dataset.
-![alt text](https://github.com/pawankumar94/RedWine-Quality-Estimator/blob/96e762a145b17b6b356c31c8502a4d744c4a7c27/graphics/Ditribution.png)
-![alt text](https://github.com/pawankumar94/RedWine-Quality-Estimator/blob/96e762a145b17b6b356c31c8502a4d744c4a7c27/graphics/before-oversample.png)
 
-- The following Image shows the correlation matrix of the dataset and correlation of features with target variables
-![alt text](https://github.com/pawankumar94/RedWine-Quality-Estimator/blob/96e762a145b17b6b356c31c8502a4d744c4a7c27/graphics/correlation.png)
+![alt text](https://github.com/pawankumar94/RedWine-Quality-Estimator/blob/4078627b9531b5f6012d170a929973b94c7e9905/graphics/Ditribution.png)
+
+![alt text](https://github.com/pawankumar94/RedWine-Quality-Estimator/blob/4078627b9531b5f6012d170a929973b94c7e9905/graphics/before-oversample.png)
+
+- The following Image shows the correlation matrix of the dataset. At first glance from the  below image, we can observe that  free sulphar dioxide and total sulphur dioxide have the same correlation between each other.   
+
+![alt text](https://github.com/pawankumar94/RedWine-Quality-Estimator/blob/4078627b9531b5f6012d170a929973b94c7e9905/graphics/correlation.png)
+
+- The following Image shows us positive and negative correlation of the target variable with the features.
+ 
+ ![alt text](https://github.com/pawankumar94/RedWine-Quality-Estimator/blob/4078627b9531b5f6012d170a929973b94c7e9905/graphics/Correlation-quality.png)
+
 
