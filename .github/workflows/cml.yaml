@@ -14,8 +14,7 @@ jobs:
           pip install -r requirements.txt
           # Running the Trainer Module
           python train.py
-          
-          
+           
           echo "## Confusion Matrix Logistic Regression" >> report.md
           cml-publish Logistic_Regression_confusion_matrix.png --md >> report.md
           
