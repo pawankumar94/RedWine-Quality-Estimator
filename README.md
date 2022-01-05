@@ -65,3 +65,55 @@ The performance of the models were monitored by observing the results from follo
 - Confusion Matrix between predictions and actual values
 - Classification Report of Each model
 
+### 5.1 Logisitc Regression Results
+
+Classification Report:
+``` 
+   precision    recall  f1-score   support
+
+           0       0.98      0.77      0.86       413
+           1       0.38      0.88      0.53        67
+
+    accuracy                           0.79       480
+   macro avg       0.68      0.83      0.70       480
+weighted avg       0.89      0.79      0.82       480
+```
+![alt text](https://github.com/pawankumar94/RedWine-Quality-Estimator/blob/4c29fe5fc01c813eaab69d1fd4df8d2d91ff9c32/Train-Test-Results/Logistic_Regression_confusion_matrix.png)
+
+### 5.2 Decision Tree Results
+
+Classification Report:
+``` 
+    precision    recall  f1-score   support
+
+           0       0.95      0.88      0.91       413
+           1       0.48      0.70      0.57        67
+
+    accuracy                           0.85       480
+   macro avg       0.71      0.79      0.74       480
+weighted avg       0.88      0.85      0.86       480
+```
+![alt text](https://github.com/pawankumar94/RedWine-Quality-Estimator/blob/4c29fe5fc01c813eaab69d1fd4df8d2d91ff9c32/Train-Test-Results/Decison_Tree_confusion_matrix.png)
+
+### 5.3 Random Forest Results
+
+Classification Report:
+``` 
+   precision    recall  f1-score   support
+
+           0       0.96      0.91      0.93       413
+           1       0.58      0.76      0.66        67
+
+    accuracy                           0.89       480
+   macro avg       0.77      0.84      0.80       480
+weighted avg       0.91      0.89      0.90       480
+```
+![alt text](https://github.com/pawankumar94/RedWine-Quality-Estimator/blob/4c29fe5fc01c813eaab69d1fd4df8d2d91ff9c32/Train-Test-Results/Random_Forest_confusion_matrix.png)
+
+### 5.4 Train and Test Score for all Models
+
+|      Model Name      | Training Score | Testing Score |
+|:--------------------:|:--------------:|:-------------:|
+| Logistic  Regression |     79.1 %     |     78.5%     |
+|    Decision  Tree    |     100.0%     |     85.2%     |
+|    Random  Forest    |      99.8%     |     89.0%     |
