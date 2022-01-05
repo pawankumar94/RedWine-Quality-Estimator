@@ -8,10 +8,14 @@ This repository contains the solution for classifying the quality of Wine on Kag
 
 The implementation can be run locally by building the Dockerfile. Continious Integration/Continious Deployments is performed by using the CML open source tool [Link to repository](https://github.com/iterative/cml) 
 
-## 0. Problem Statement
+
+## 0. Machine Learning Pipeline 
+![alt text](https://github.com/pawankumar94/RedWine-Quality-Estimator/blob/855ea5dfb389f62fa9a25ef55dc4813d8d0ada61/graphics/MLPipeline.png)
+
+## 1. Problem Statement
 Builiding of ML pipeline for Classifying the quality of red wine as "Good" or "Bad". The Problem was proposed in Kaggle challenge [Link to Dataset](https://www.kaggle.com/uciml/red-wine-quality-cortez-et-al-2009)
 
-## 1. Description of Dataset
+## 2. Description of Dataset
 - Columns:
     - Fixed Acidity: describes the fixed acidity of the wine
     - Volatile Acidity: describes the the amount of acetic acid in the wine
@@ -26,11 +30,11 @@ Builiding of ML pipeline for Classifying the quality of red wine as "Good" or "B
     - alchol: describes the alchol percentage present in wine
     - quality: describes the quality of Wine (*Ranges from 0 -10, Wine Quality above 7 are considered as good.*)
 
-## 2. Preprocessing Steps Included
+## 3. Preprocessing Steps Included
 - Transformation of Target Variable(Quality) from the range 0-10 to 0(Bad) - 1(Good)
 - Features Scaling Performed using StandardScaler  [Link to Dataset](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html)
 
-## 3. Exploratory Data Analysis
+## 4. Exploratory Data Analysis
 - As mentioned above the target variable(quality) ranges in a range between 0 - 10. We first transformed the problem into a binary classification problem, by moviing   all the instances with quality < 7 as "Bad" and quality >7 as "Good". At first glance on the below shown figures a high class imbalance problem in the dataset.
 
 ![alt text](https://github.com/pawankumar94/RedWine-Quality-Estimator/blob/4078627b9531b5f6012d170a929973b94c7e9905/graphics/Ditribution.png)
@@ -45,4 +49,19 @@ Builiding of ML pipeline for Classifying the quality of red wine as "Good" or "B
  
  ![alt text](https://github.com/pawankumar94/RedWine-Quality-Estimator/blob/4078627b9531b5f6012d170a929973b94c7e9905/graphics/Correlation-quality.png)
 
+## 5. Training and Monitoring Performance.
+
+The models selected for solving the problem in question were:
+1. Logistic Regression
+2. Decison Tree
+3. Random Forest
+
+The models were trained on 70% of the dataset and we kept remaining 30% of dataset for testing. Due to the problem of class imbalance present in the dataset as shown in previous section. We first began by balancing out the classes in the training splitted dataset by using [SMOTE](https://imbalanced-learn.org/stable/references/generated/imblearn.over_sampling.SMOTE.html) library oversampling technique which works on nearest neighbor algorithm , the chosen value of K for nearest neighbor was kept as **4**.
+
+![alt text](https://github.com/pawankumar94/RedWine-Quality-Estimator/blob/b5d8cf8e5e27ec9b308aba84687dcc1c619d8c53/graphics/After-oversample.png)
+
+The performance of the models were monitored by observing the results from following metrics:
+- Training and Testing score 
+- Confusion Matrix between predictions and actual values
+- Classification Report of Each model
 
