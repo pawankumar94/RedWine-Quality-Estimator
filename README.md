@@ -4,12 +4,13 @@
 ![build](https://img.shields.io/badge/Build-Passing-brightgreen)
 [![GHA](https://img.shields.io/github/v/tag/iterative/setup-cml?label=GitHub%20Actions&logo=GitHub)](https://github.com/iterative/setup-cml)
 
-This repository contains the solution for classifying the quality of Wine on Kaggle dataset: . The selected models for classifying the quality of wine as "Good" or "Bad", includes Logistic Regression, Random Forest, Decison Tree.
+This repository contains the solution for classifying the quality of Wine on Kaggle dataset intended to be submitted as a **Code Challenge** . The selected models for classifying the quality of wine as "Good" or "Bad", includes *Logistic Regression, Random Forest, Decison Tree*.
 
 The implementation can be run locally by building the Dockerfile. Continious Integration/Continious Deployments is performed by using the CML open source tool [Link to repository](https://github.com/iterative/cml) 
 
-
 ## 0. Machine Learning Pipeline 
+The following figure shows us the sequence of steps performed in order to obtain the desired results
+
 ![alt text](https://github.com/pawankumar94/RedWine-Quality-Estimator/blob/855ea5dfb389f62fa9a25ef55dc4813d8d0ada61/graphics/MLPipeline.png)
 
 ## 1. Problem Statement
@@ -117,3 +118,59 @@ weighted avg       0.91      0.89      0.90       480
 | Logistic  Regression |     79.1 %     |     78.5%     |
 |    Decision  Tree    |     100.0%     |     85.2%     |
 |    Random  Forest    |      99.8%     |     89.0%     |
+
+## 6 Building, Integration and Deployment
+
+### 6.1 Building
+In order to reproduce the above mentioned results on local machine the following steps needs to be performed in the cloned git repository:
+1. Clone the repository by using the following
+   ```
+   git clone https://github.com/pawankumar94/RedWine-Quality-Estimator.git
+2. Build the Docker file using the following
+   ```
+   docker build -t wine-classifier:1.0 .
+   ```
+3. Run the Docker image using Docker Mounts
+    ```
+   docker --mount target=/usr/home/wine_test,src="Path to Directory",type=bind wine-classifier:1.0
+   ```
+The Output of the docker run would provide the training and testing results in the command prompt and would produce the graphics for each model and Data Distribution 
+in the present working directory. Following is the example of expected output from above mentioned:
+```
+Accuracy on training set of: Logistic_Regression
+80.5985552115583
+Accuracy on testing set of: Logistic_Regression
+79.375
+Accuracy on training set of: Decison_Tree
+100.0
+Accuracy on testing set of: Decison_Tree
+86.66666666666667
+Accuracy on training set of: Random_Forest
+99.84520123839009
+Accuracy on testing set of: Random_Forest
+89.16666666666667
+```
+Following are the list of graphics produced after running the docker  image ```wine-classifier:1.0```
+1. After-oversample : Distribution of Classes after dealing with Class Imbalance
+2. Logistic_Regression_Report: Classification Report for Logistic Regression
+3. Logistic_Regression_confusion_matrix: Confusion Matrix of Logistic Regression between predicted and true labels
+4. Random_Forest_Report: Classification Report for Random Forest
+5. Random_Forest_confusion_matrix: Confusion Matrix of Random Forest between predicted and true labels
+6. Decision_Tree_Report: Classification Report for Decison Tree
+7. Decision_Tree_confusion_matrix: Confusion Matrix of Decision_Tree between predicted and true labels
+8. Metrics: Train and Test Score of all Selected Models
+
+### 6.2 Integration and Deployment 
+The tool used for dealing with CI/CD of the ML models is CML(Continious Machine Learning), which is based on the [cml.yaml](https://github.com/pawankumar94/RedWine-Quality-Estimator/blob/d30d35b7dea33155acb8cbb2c183dc79b85d7401/.github/workflows/cml.yaml) file. The CML tool is used with github actions, which helps us in training and evaluating model by generating visual reports on every pull request. Each commit or changes made to the repository/ML pipeline allows the tool to automatically build the entire workflow and check for build issues. Following is an example from the last successful build made using github actions:
+![alt text](https://github.com/pawankumar94/RedWine-Quality-Estimator/blob/2963d06ba308b12f9a9d6f4c6ae163c553283cb6/graphics/github-actions-build.PNG)
+
+The Entire Workflow begins in a sequence of steps as shown in the above image:
+1. The Workflow begins by creating a virtual operating system for the repository authenticated by the Github Token provided by the [cml.yaml file](https://github.com/pawankumar94/RedWine-Quality-Estimator/blob/2963d06ba308b12f9a9d6f4c6ae163c553283cb6/.github/workflows/cml.yaml)
+2. Similar to manual building and running container on local system, the workflow creates a contrainer provided by the yaml file and later checks for the github sync.
+3. The train part of the workflow is majorly responsible for installing the project dependancies present in [requirements.txt](https://github.com/pawankumar94/RedWine-Quality-Estimator/blob/2963d06ba308b12f9a9d6f4c6ae163c553283cb6/requirements.txt) and training the models. After the models are successfully built, the CML tool creates a md file as a report containing the confusion matrix of each model and scores obtained
+4.  If there are any built issues present in the repository, the build will fail and will provide us the detail information behind the reason for unsuccessfull build 
+5. Once the models are trained and reports are generated , the tool stops the container and ends the job started for the specific run
+
+The entire history of ML Workflows builds made in the repository can be found under Github Actions, an example of the detailed report generated by CML can be viewed 
+[here](https://github.com/pawankumar94/RedWine-Quality-Estimator/pull/4#commitcomment-62949449)
+
